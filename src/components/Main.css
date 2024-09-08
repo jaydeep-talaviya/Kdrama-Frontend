@@ -1,0 +1,55 @@
+
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Floating Button Styles */
+.toggle-btn {
+  position: static;
+  top: 15px;
+  z-index: 1000; /* Ensure it floats above other elements */
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6); /* Add transparency for better visibility */
+  border-radius: 50%;
+  padding: 10px 15px;
+  display: flex;
+}
+
+.left {
+  left: 15px; /* Floats on the left side of the header */
+}
+
+.right {
+  right: 15px; /* Floats on the right side of the header */
+}
+
+/* Adjustments for small screens */
+@media screen and (max-width: 768px) {
+  .toggle-btn.left {
+    left: 10px;
+    font-size: xx-large;
+  }
+
+  .toggle-btn.right {
+    right: 10px;
+    font-size: xx-large;
+  }
+
+  .main-content {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.css-1apkmlw-MuiButtonBase-root-MuiButton-root{
+  position: absolute !important;
+}
+
+
+
+.toggle-btn svg{
+  font-size: xx-large;
+}
