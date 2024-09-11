@@ -4,15 +4,10 @@ import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ImageSlider from './ImageSlider';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
-
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -20,124 +15,113 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import './DynContainerDivs.css';
-import { Height } from '@mui/icons-material';
-
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
-    backgroundColor:"#112e4ad1",
-    height:"100%",
+    backgroundColor: "#112e4ad1",
+    height: "90%",
     color: theme.palette.text.secondary,
     ...theme.applyStyles('dark', {
         backgroundColor: '#1A2027',
     })
-    
 }));
 
-const bull = (
-    <Box
-        component="span"
-        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-        •
-    </Box>
-);
+const menus = ['K-Dramas', 'K-Movies', "K-Actors", "K-Actress", "Upcoming K-Drama", "Upcoming K-Movie"];
 
-const menus = ['K-Dramas','K-Movies',"K-Actors","K-Actress","Upcomming K-Drama","Upcomming K-Movie"]
-
-const showOff = [{"menu_name":"Kdramas","val":10},{"menu_name":"Movies","val":11},{"menu_name":"Actress","val":23},{"menu_name":"Actress","val":34},{"menu_name":"Directors","val":30},{"menu_name":"Writter","val":7}]
+const showOff = [
+    { "menu_name": "Kdramas", "val": 10 },
+    { "menu_name": "Movies", "val": 11 },
+    { "menu_name": "Actress", "val": 23 },
+    { "menu_name": "Actress", "val": 34 },
+    { "menu_name": "Directors", "val": 30 },
+    { "menu_name": "Writers", "val": 7 }
+];
 
 function DynContainerDivs() {
     return (
-        <Box sx={{ width: '100%',
-            justifyContent:"center",
-            alignItems:"center",
-            display:"flex"}}>
+        <Box sx={{ width: '100%', justifyContent: "center", alignItems: "center", display: "flex" }}>
             <Grid
                 container
                 justifyContent="center"
-                columnSpacing={{ xs: 1, sm: 2, md: 2,lg:2 }} columns={{ xs: 4, sm: 8, md: 12 }} 
+                columnSpacing={{ xs: 2,sm:1, lg: 1 }}
+                columns={{ xs: 4, sm: 12 }}
+                rowSpacing={1} /* Added row spacing */
             >
-
-                    <Grid size={3}>
-                        <Item>
-                                <CardContent  >
-                                   
-                                <Typography sx={{fontFamily: "Gloria Hallelujah",
-                                    fontWeight: "800 !important",
-                                    fontStyle: "oblique !important",
-                                    fontSize: "1.5vw !important"}} 
-                                    color='white'
-                                    variant="h3" component="div">
-                                        Explore K-Drama World
-                                    </Typography>
-                                    <Box sx={{ width: '100%', maxWidth: 360 }}>
-                                        <nav className="main_mailbox folders">
-                                            <List>
-                                                {menus.map((val,idx)=>{
-                                                    return  <ListItem disablePadding >
-                                                    <ListItemButton>
+                <Grid size={3}>
+                    <Item sx={{ padding: 1, minHeight: "200px" }}> {/* Reduced padding */}
+                        <CardContent sx={{ paddingBottom: '4px',overflowY:"auto",height:"90%" }}> {/* Reduced padding */}
+                            <Typography sx={{
+                                fontFamily: "Gloria Hallelujah",
+                                fontWeight: 700,
+                                fontSize: "1.2rem",  /* Reduced font size */
+                                lineHeight: 1.2,    /* Adjusted line height */
+                                mb: 1  /* Added margin-bottom for space */
+                            }} color='white' variant="h5" component="div">
+                                Explore K-Drama World
+                            </Typography>
+                            <Box sx={{ width: '100%', maxWidth: 360 }}>
+                                <nav className="main_mailbox folders">
+                                    <List>
+                                        {menus.map((val, idx) => (
+                                            <ListItem disablePadding key={idx}>
+                                                <ListItemButton sx={{ padding: '4px 3px' }}> {/* Reduced padding */}
                                                     <ListItemIcon>
-                                                        <NearMeIcon  />
-                                                    </ListItemIcon >
-                                                    <ListItemText primary={val} />
-                                                    </ListItemButton>
-                                                </ListItem>
-                                                })}
-                                           
-                                        
-                                            </List>
-                                        </nav>
-                                        </Box>
-                                </CardContent>
-                        </Item>
-                    </Grid>
-
-                    <Grid size={6}>
-                        <Item>
-                            <ImageSlider/>
-                        </Item>
-                    </Grid>
-                    <Grid size={3}>
-                    <Item>
-                                <CardContent  >
-                                   
-                                <Typography sx={{fontFamily: "Gloria Hallelujah",
-                                    fontWeight: "800 !important",
-                                    fontStyle: "oblique !important",
-                                    fontSize: "1.5vw !important"}} 
-                                    color='white'
-                                    variant="h3" component="div">
-                                        Explore K-Drama World
-                                    </Typography>
-                                    <Box sx={{ width: '100%', maxWidth: 360 }}>
-                                        <nav className="main_mailbox folders">
-                                            <List>
-                                                {showOff.map((val,idx)=>{
-                                                    return  <ListItem disablePadding >
-                                                    <ListItemButton>
-                                                    <ListItemIcon>
-                                                        <ArrowForwardIcon  />
-                                                    </ListItemIcon >
-                                                    <ListItemText primary={val['menu_name']} />
-                                                    <ListItemText primary={val['val']} />
-                                                    </ListItemButton>
-                                                </ListItem>
-                                                })}
-                                           
-                                        
-                                            </List>
-                                        </nav>
-                                        </Box>
-                                </CardContent>
-                        </Item>
-                    </Grid>
+                                                        <NearMeIcon fontSize="small" /> {/* Adjust icon size */}
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={val} sx={{ fontSize: '0.9rem' }} /> {/* Adjusted text size */}
+                                                </ListItemButton>
+                                            </ListItem>
+                                        ))}
+                                    </List>
+                                </nav>
+                            </Box>
+                        </CardContent>
+                    </Item>
                 </Grid>
-        </Box>
 
-    )
+                <Grid size={6}>
+                    <Item sx={{ padding: 1, minHeight: "200px" }}> {/* Reduced padding */}
+                        <ImageSlider />
+                    </Item>
+                </Grid>
+
+                <Grid size={3}>
+                    <Item sx={{ padding: 1, minHeight: "200px" }}> {/* Reduced padding */}
+                        <CardContent sx={{ paddingBottom: '4px',overflowY:"auto",height:"90%" }}> {/* Reduced padding */}
+                            <Typography sx={{
+                                fontFamily: "Gloria Hallelujah",
+                                fontWeight: 700,
+                                fontSize: "1.2rem",  /* Reduced font size */
+                                lineHeight: 1.1,    /* Adjusted line height */
+                                mb: 1  /* Added margin-bottom for space */
+                            }} color='white' variant="h5" component="div">
+                                Explore K-Drama World
+                            </Typography>
+                            <Box sx={{ width: '100%', maxWidth: 360 }}>
+                                <nav className="main_mailbox folders">
+                                    <List>
+                                        {showOff.map((val, idx) => (
+                                            <ListItem disablePadding key={idx}>
+                                                <ListItemButton sx={{ padding: '4px 3px' }}> {/* Reduced padding */}
+                                                    <ListItemIcon>
+                                                        <ArrowForwardIcon fontSize="small" /> {/* Adjust icon size */}
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={val['menu_name']} sx={{ fontSize: '0.9rem' }} /> {/* Adjusted text size */}
+                                                    <ListItemText primary={val['val']} sx={{ fontSize: '0.9rem' }} /> {/* Adjusted text size */}
+                                                </ListItemButton>
+                                            </ListItem>
+                                        ))}
+                                    </List>
+                                </nav>
+                            </Box>
+                        </CardContent>
+                    </Item>
+                </Grid>
+            </Grid>
+        </Box>
+    );
 }
 
 export default DynContainerDivs;

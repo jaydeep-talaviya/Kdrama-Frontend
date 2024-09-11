@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { forwardRef } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -16,7 +16,7 @@ import './Header.css';
 
 const pages = ['K-Drama,', 'K-Actor/es,', 'K-Movie'];
 
-function Header() {
+const Header = forwardRef((props, ref) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));  // Checks if the screen is small
@@ -71,7 +71,7 @@ function Header() {
   }));
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" ref={ref} >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -145,6 +145,6 @@ function Header() {
       </Container>
     </AppBar>
   );
-}
+})
 
 export default Header;

@@ -1,0 +1,32 @@
+/* Global scrollbar styling with fancy effects */
+::-webkit-scrollbar {
+    width: 14px; /* Width of the scrollbar */
+  }
+  
+  /* Track styling */
+  ::-webkit-scrollbar-track {
+    background: linear-gradient(180deg, #e0e0e0, #f9f9f9); /* Gradient background */
+    border-radius: 10px; /* Rounded track */
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); /* Inner shadow effect */
+  }
+  
+  /* Scrollbar thumb (draggable part) */
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #509fff, #4766ff); /* Gradient color for thumb */
+    border-radius: 10px; /* Rounded scrollbar */
+    border: 3px solid #f9f9f9; /* Border to give spacing from the track */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  }
+  
+  /* Hover effect for scrollbar thumb */
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #509fff, #4766ff); /* Brighter gradient on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* More pronounced shadow on hover */
+  }
+  
+  /* Active (when clicked) */
+  ::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(45deg, #509fff, #4766ff); /* Slightly different gradient when active */
+  }
+  

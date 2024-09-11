@@ -54,3 +54,7 @@
 .main_mailbox .MuiListItemText-primary {
     color: white; /* Text color */
 }
+
+.css-1uqxmav-MuiGrid2-root{
+    width: unset !important;
+}

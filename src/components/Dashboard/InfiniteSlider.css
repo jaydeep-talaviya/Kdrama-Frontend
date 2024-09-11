@@ -1,0 +1,43 @@
+.slider {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    width: 95vw;
+  }
+  
+  .slide-track {
+    display: flex;
+    animation: scroll 60s linear infinite;
+  }
+  
+  .slide {
+    min-width: 250px; /* Fixed width */
+    height: 200px; /* Fixed height */
+    margin-right: 10px;
+    overflow: hidden; /* Hide any overflow from images */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .slide img {
+    width: 100%;  /* Ensures the width fits the container */
+    height: 100%; /* Ensures the height fits the container */
+    object-fit: cover; /* Crop the image to fit the container without stretching */
+    border-radius: 8px; /* Optional: Adds rounded corners for a better look */
+    transition: transform 0.3s ease; /* Smooth hover effect */
+  }
+  
+  .slide img:hover {
+    transform: scale(1.05); /* Zoom in slightly on hover */
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-250px * 20)); /* Adjust based on the number of images */
+    }
+  }
+  

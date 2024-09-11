@@ -42,6 +42,7 @@ function Main({ child, isVisible }) {
 
   return (
     <div>
+      {/* Header Section */}
       <Header ref={headerRef} className="header" />
 
       {isSmallScreen && (
@@ -62,11 +63,11 @@ function Main({ child, isVisible }) {
         </>
       )}
 
-      {/* Main content area with dynamic height based on headerHeight */}
+      {/* Main content area */}
       <Box
         sx={{
           position: 'relative',
-          height: `calc(100vh - ${headerHeight}px)`, // Subtract headerHeight from 100vh
+          minHeight: `calc(100vh - ${headerHeight}px)`, // Subtract headerHeight from 100vh
           backgroundImage: `url(${kdrama_bg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -80,20 +81,24 @@ function Main({ child, isVisible }) {
             left: 0,
             width: '100%',
             height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            zIndex: 10,
+            backgroundColor: 'rgba(0, 0, 0, 0.7)', // Adjust opacity as needed
+            zIndex: 1, // Below content but above background
           }}
         />
 
-        {/* Content on top of the overlay */}
+        {/* Content */}
         <Box
           sx={{
             position: 'relative',
-            zIndex: 30,
+            zIndex: 2, // Above overlay
             color: 'white',
             textAlign: 'center',
             padding: '20px',
-            height: '100%', // Ensure the content takes up the full available height
+            height: '100%',
+            display: 'flex', // Add flex to center content vertically
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           {child}
