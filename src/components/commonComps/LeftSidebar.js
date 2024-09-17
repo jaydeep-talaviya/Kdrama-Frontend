@@ -46,8 +46,7 @@ const handleTvChannelSelect = (id) => {
         sx: {
           position: 'absolute', // Absolute positioning to keep it from covering the main screen
           top: 'unset',  // Adjust according to the header's height
-          width: '250px',  // Set fixed width for the drawer
-          backgroundColor: '#f4f4f4',
+          backgroundColor: '#112e4a8c',
           height: `calc(100vh - ${headerHeight}px)`
 
         },
@@ -57,12 +56,20 @@ const handleTvChannelSelect = (id) => {
         role="presentation"
         // onClick={toggleDrawer(false)}
         // onKeyDown={toggleDrawer(false)}
-        style={{ width: 250, padding: '10px' }}
+        style={{ width: 250, padding: '10px'}}
       >
         {/* start */}
         <h3>Left Sidebar Content</h3>
-        <Box sx={{ padding: 4, backgroundColor: '#f9f9f9', borderRadius: 4, maxWidth: 600, margin: 'auto' }}>
+        <Box sx={{ padding: 4, 
+          backgroundColor: '#1f3952a3', 
+          boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px", 
+          maxWidth: 600, 
+          margin: 'auto',
+          color:'white',
+          borderRadius:'2px'}}>
       {/* Genres Checkbox Group */}
+      <Typography variant="h6" sx={{fontFamily: "Gloria Hallelujah",
+          fontWeight: 700 }}>Select Genres</Typography>
       <CheckboxGroup
         label="Select Genres"
         items={genres}
@@ -71,6 +78,7 @@ const handleTvChannelSelect = (id) => {
       />
 
       {/* TV Channels Checkbox Group */}
+      <Typography variant="h6">Select TV Channels</Typography>
       <CheckboxGroup
         label="Select TV Channels"
         items={tv_channels}

@@ -18,8 +18,7 @@ const RightSidebar = ({ isOpen,headerHeight, toggleDrawer }) => {
         sx: {
           position: 'absolute', // Absolute positioning to keep it from covering the main screen
           top: 'unset',  // Adjust according to the header's height
-          width: '250px',  // Set fixed width for the drawer
-          backgroundColor: '#f4f4f4',
+          backgroundColor: '#112e4a8c',
           height: `calc(100vh - ${headerHeight}px)`
         },
       }}
