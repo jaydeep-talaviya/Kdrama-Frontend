@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-const RightSidebar = ({ isOpen, toggleDrawer }) => {
+const RightSidebar = ({ isOpen,headerHeight, toggleDrawer }) => {
   const theme = useTheme();
   const isMediumScreenOrLarger = useMediaQuery(theme.breakpoints.up('md'));
 
@@ -20,6 +20,7 @@ const RightSidebar = ({ isOpen, toggleDrawer }) => {
           top: 'unset',  // Adjust according to the header's height
           width: '250px',  // Set fixed width for the drawer
           backgroundColor: '#f4f4f4',
+          height: `calc(100vh - ${headerHeight}px)`
         },
       }}
     >
