@@ -50,16 +50,16 @@ function Main({ child,left_props,right_props, isVisible }) {
           <Button className="toggle-btn left" onClick={toggleLeftDrawer(!leftOpen)}>
             <ArrowCircleRightIcon />
           </Button>
-          <Button className="toggle-btn right" onClick={toggleRightDrawer(!rightOpen)}>
+          {/* <Button className="toggle-btn right" onClick={toggleRightDrawer(!rightOpen)}>
             <ArrowCircleLeftIcon />
-          </Button>
+          </Button> */}
         </>
       )}
 
       {isVisible && (
         <>
           {(!isSmallScreen || leftOpen) && <LeftSidebar isOpen={leftOpen} left_props={left_props} headerHeight={headerHeight} toggleDrawer={toggleLeftDrawer} />}
-          {(!isSmallScreen || rightOpen) && <RightSidebar isOpen={rightOpen} right_props={right_props} headerHeight={headerHeight} toggleDrawer={toggleRightDrawer} />}
+          {/* {(!isSmallScreen || rightOpen) && <RightSidebar isOpen={rightOpen} right_props={right_props} headerHeight={headerHeight} toggleDrawer={toggleRightDrawer} />} */}
         </>
       )}
 
@@ -99,6 +99,8 @@ function Main({ child,left_props,right_props, isVisible }) {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
+            marginLeft: leftOpen && !isSmallScreen ? '250px' : '0', // Adjust margin when sidebar is open
+            transition: 'margin-left 0.3s ease',  // Smooth transition effect  
           }}
         >
           {child}
