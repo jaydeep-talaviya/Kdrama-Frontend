@@ -1,9 +1,11 @@
 
-
-.main-content {
-  
+.css-5c1adp-MuiContainer-root {
+  max-width: unset !important;
 }
-
+/* .main-content{
+  height: 90vh;
+  overflow-y: scroll;
+} */
 /* Floating Button Styles */
 .toggle-btn {
   position: static;

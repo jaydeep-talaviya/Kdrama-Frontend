@@ -16,7 +16,6 @@ const LeftSidebar = ({ isOpen,left_props, headerHeight, toggleDrawer }) => {
   const isMediumScreenOrLarger = useMediaQuery(theme.breakpoints.up('md'));
 
   const {genres,tv_channels} = left_props;
-  console.log(">>>>>>>left_props",left_props,genres,tv_channels)
 
 // States to store selected genres and TV channels
 const [selectedGenres, setSelectedGenres] = useState([]);

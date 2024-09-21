@@ -11,7 +11,7 @@ import Header from './headers/Header';
 import kdrama_bg from '../images/kdrama_bg.jpg';
 import './Main.css';
 
-function Main({ child,left_props,right_props, isVisible }) {
+function Main({ child,contentRef,left_props, isVisible }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -59,7 +59,6 @@ function Main({ child,left_props,right_props, isVisible }) {
       {isVisible && (
         <>
           {(!isSmallScreen || leftOpen) && <LeftSidebar isOpen={leftOpen} left_props={left_props} headerHeight={headerHeight} toggleDrawer={toggleLeftDrawer} />}
-          {/* {(!isSmallScreen || rightOpen) && <RightSidebar isOpen={rightOpen} right_props={right_props} headerHeight={headerHeight} toggleDrawer={toggleRightDrawer} />} */}
         </>
       )}
 
@@ -94,7 +93,7 @@ function Main({ child,left_props,right_props, isVisible }) {
             color: 'white',
             textAlign: 'center',
             padding: '20px',
-            height: '100%',
+            paddingBottom: '0',
             display: 'flex', // Add flex to center content vertically
             flexDirection: 'column',
             justifyContent: 'center',
@@ -103,7 +102,11 @@ function Main({ child,left_props,right_props, isVisible }) {
             transition: 'margin-left 0.3s ease',  // Smooth transition effect  
           }}
         >
+          <div style={{height: `calc(100vh - ${headerHeight+30}px)`,
+          overflowY:"scroll"}} 
+          ref={contentRef}>
           {child}
+          </div>
         </Box>
       </Box>
     </div>

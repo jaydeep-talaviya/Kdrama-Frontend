@@ -1,83 +1,102 @@
-import React from 'react'
-import Main from './MainLayout'
-import MainContent from './commonComps/MainContent'
+import React, { useEffect, useState, useRef } from 'react';
+import Main from './MainLayout';
+import MainContent from './commonComps/MainContent';
+import apiClient from '../AxiosIntercepter';
 
 function Kdrama() {
+  const [all_genres, SetAllGenres] = useState([]);
+  const [all_tv_channels, SetAllTvChannels] = useState([]);
+  const [dramas, setDramas] = useState([]); // State to hold the drama list
+  const [error, setError] = useState(null);
+  const [offset, setOffset] = useState(0); // Offset for pagination
+  const [loading, setLoading] = useState(false); // Loading state
+  const limit = 12; // Limit of items per fetch
 
-    const all_genres = [
-        {
-            "_id": "66c8a9b65b264c573545798f",
-            "genre_name": "Action"
-        },
-        {
-            "_id": "66c8a9b65b264c5735457990",
-            "genre_name": "Adventure"
-        },
-        {
-            "_id": "66c8a9b65b264c5735457991",
-            "genre_name": "Aging"
-        },
-        {
-            "_id": "66c8a9b65b264c5735457992",
-            "genre_name": "Animation"
-        },
-        {
-            "_id": "66c8a9b65b264c5735457993",
-            "genre_name": "Anthology"
-        },
-        {
-            "_id": "66c8a9b65b264c5735457994",
-            "genre_name": "Audio Movie"
-        },
-        {
-            "_id": "66c8a9b65b264c5735457996",
-            "genre_name": "BL - Boys' Love"
-        },
-        {
-            "_id": "66c8a9b65b264c5735457995",
-            "genre_name": "Biography"
-        },
-        {
-            "_id": "66c8a9b65b264c5735457997",
-            "genre_name": "Black comedy"
-        },
-        {
-            "_id": "66c8a9b65b264c5735457998",
-            "genre_name": "Business"
+  const contentRef = useRef(); // Ref for the MainContent
+
+  // Fetch genres and TV channels
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response_genres = await apiClient.get('/drama/genres?limit=200');
+        const response_tv_channels = await apiClient.get('/drama/tv_channels?limit=500');
+        SetAllGenres(response_genres.data.data);
+        SetAllTvChannels(response_tv_channels.data.data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // Function to fetch dramas based on the current offset
+  const fetchDramas = async () => {
+    console.log(">offset", offset, "...limit", limit);
+    if (loading) return; // Prevent fetching if already loading
+    setLoading(true); // Set loading to true
+    try {
+      const response = await apiClient.get(`/drama?limit=${limit}&offset=${offset}`); // Fetch using limit and offset
+      const newDramas = response.data.data;
+
+      // Create a set of existing drama IDs
+      const existingDramaIds = new Set(dramas.map(drama => drama._id)); // Adjust to match your drama's unique ID property
+
+      // Filter out already existing dramas
+      const filteredNewDramas = newDramas.filter(drama => !existingDramaIds.has(drama._id));
+
+      // Update the dramas state with the unique entries
+      setDramas(prevDramas => {
+        const combinedDramas = [...prevDramas, ...filteredNewDramas];
+        const uniqueDramas = Array.from(new Set(combinedDramas.map(drama => drama._id))) // Ensure uniqueness by ID
+          .map(id => combinedDramas.find(drama => drama._id === id)); // Map back to the drama objects
+        return uniqueDramas;
+      });
+
+      setOffset(prevOffset => prevOffset + limit); // Increment the offset
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false); // Reset loading state
+    }
+  };
+
+  // Initial fetch of dramas
+  useEffect(() => {
+    if (dramas.length === 0) {
+      fetchDramas();
+    }
+  }, [dramas.length]);
+
+  // Scroll event listener inside MainContent
+  useEffect(() => {
+    const handleScroll = () => {
+      if (contentRef.current) {
+        const { scrollTop, clientHeight, scrollHeight } = contentRef.current;
+        if (scrollTop + clientHeight >= scrollHeight - 50 && !loading) { // Threshold of 50px from bottom
+          fetchDramas(); // Fetch more dramas when scrolled near bottom
         }
-    ]
-    const all_tv_channels = [
-        {
-          "_id": "66c8ac58d0371da8d2ed9595",
-          "tv_channel": "21st Century Media ((주)이십일세기미디어)",
-          "tv_channel_link": "https://www.hancinema.net/korean_company_128_21st_Century_Media.html"
-        },
-        {
-          "_id": "66c8ac58d0371da8d2ed9597",
-          "tv_channel": "A1 Media (에이원 미디어)",
-          "tv_channel_link": "https://www.hancinema.net/korean_company_176_A1_Media.html"
-        },
-        {
-          "_id": "66c8ac58d0371da8d2ed9599",
-          "tv_channel": "Apple TV+ (Apple TV+)",
-          "tv_channel_link": "https://www.hancinema.net/korean_company_100_Apple_TV_plus_.html"
-        },
-        {
-          "_id": "66c8ac58d0371da8d2ed959f",
-          "tv_channel": "BBANGYA TV (빵야TV)",
-          "tv_channel_link": "https://www.hancinema.net/korean_company_103_BBANGYA_TV.html"
-        }]
+      }
+    };
 
+    const contentElement = contentRef.current;
+    if (contentElement) {
+      contentElement.addEventListener('scroll', handleScroll);
+    }
 
-    const left_props = {genres:all_genres,tv_channels:all_tv_channels}
+    return () => {
+      if (contentElement) {
+        contentElement.removeEventListener('scroll', handleScroll); // Cleanup listener on unmount
+      }
+    };
+  }, [loading]);
 
-    const right_props = {type:'kdrama'}
+  const left_props = { genres: all_genres, tv_channels: all_tv_channels };
 
-    return (
-        <>
-            <Main child={<MainContent />} left_props={left_props} right_props={right_props} isVisible={true} />
-        </>
-    )
+  return (
+    <div>
+      <Main child={<MainContent dramas={dramas} />} contentRef={contentRef} left_props={left_props} isVisible={true} />
+    </div>
+  );
 }
 
-export default Kdrama
+export default Kdrama;
