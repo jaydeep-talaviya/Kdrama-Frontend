@@ -11,12 +11,15 @@ function Kdrama() {
   const [offset, setOffset] = useState(0); // Offset for pagination
   const [loading, setLoading] = useState(false); // Loading state
   const limit = 12; // Limit of items per fetch
+  const [filters,setFilters] = useState({})
 
   const contentRef = useRef(); // Ref for the MainContent
 
   // Fetch genres and TV channels
   useEffect(() => {
+
     const fetchData = async () => {
+      
       try {
         const response_genres = await apiClient.get('/drama/genres?limit=200');
         const response_tv_channels = await apiClient.get('/drama/tv_channels?limit=500');
@@ -29,13 +32,36 @@ function Kdrama() {
     fetchData();
   }, []);
 
+  const handleClear=()=>{
+    setFilters({})
+    setDramas({})
+    fetchDramas()
+  }
   // Function to fetch dramas based on the current offset
   const fetchDramas = async () => {
-    console.log(">offset", offset, "...limit", limit);
     if (loading) return; // Prevent fetching if already loading
     setLoading(true); // Set loading to true
     try {
-      const response = await apiClient.get(`/drama?limit=${limit}&offset=${offset}`); // Fetch using limit and offset
+      console.log(">>>>>loading",loading)
+
+      var filter_condition = '&order_by=airing_dates_start&direction=desc'
+      if (filters != {}){
+        if (filters.start_date != undefined){
+          filter_condition+=`&start_date=${filters.start_date}&end_date=${filters.end_date}`
+        }
+        if (filters.genres != undefined && filters.genres != []){
+          filters.genres.forEach(element => {
+            filter_condition+=`&genres=${element}`
+          });
+        }
+        if (filters.tv_channels != undefined && filters.tv_channels != []){
+          filters.tv_channels.forEach(element => {
+            filter_condition+=`&tv_channels=${element}`
+          });
+        }
+      }
+      console.log(">>>>>>",`/drama?limit=${limit}&offset=${offset}${filter_condition}`)
+      const response = await apiClient.get(`/drama?limit=${limit}&offset=${offset}${filter_condition}`); // Fetch using limit and offset
       const newDramas = response.data.data;
 
       // Create a set of existing drama IDs
@@ -54,6 +80,7 @@ function Kdrama() {
 
       setOffset(prevOffset => prevOffset + limit); // Increment the offset
     } catch (error) {
+      console.log(">>>>>error",error.message)
       setError(error.message);
     } finally {
       setLoading(false); // Reset loading state
@@ -62,10 +89,19 @@ function Kdrama() {
 
   // Initial fetch of dramas
   useEffect(() => {
+    console.log(">>>>>>>>>",dramas.length)
     if (dramas.length === 0) {
       fetchDramas();
     }
   }, [dramas.length]);
+
+  useEffect(() => {
+    setDramas([])
+    if(filters != {}){
+      fetchDramas();
+
+    }
+  }, [filters]);
 
   // Scroll event listener inside MainContent
   useEffect(() => {
@@ -91,10 +127,9 @@ function Kdrama() {
   }, [loading]);
 
   const left_props = { genres: all_genres, tv_channels: all_tv_channels };
-
   return (
     <div>
-      <Main child={<MainContent dramas={dramas} />} contentRef={contentRef} left_props={left_props} isVisible={true} />
+      <Main child={<MainContent dramas={dramas} />} contentRef={contentRef} setFilters={setFilters} handleClear={handleClear} left_props={left_props} isVisible={true} />
     </div>
   );
 }

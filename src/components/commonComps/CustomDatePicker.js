@@ -3,7 +3,6 @@ import { Box, TextField, Typography, Paper } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs from 'dayjs';
 import { styled } from '@mui/system';
 
 const StyledDatePicker = styled(Box)(({ theme }) => ({
@@ -22,9 +21,8 @@ const StyledDatePicker = styled(Box)(({ theme }) => ({
   },
 }));
 
-const CustomDatePicker = () => {
-  const [startDate, setStartDate] = useState(dayjs());
-  const [endDate, setEndDate] = useState(dayjs());
+const CustomDatePicker = ({startDate,endDate,setStartDate,setEndDate}) => {
+
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>

@@ -11,15 +11,20 @@ import Header from './headers/Header';
 import kdrama_bg from '../images/kdrama_bg.jpg';
 import './Main.css';
 
-function Main({ child,contentRef,left_props, isVisible }) {
+function Main({ child,contentRef,setFilters,handleClear,left_props, isVisible }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const [leftOpen, setLeftOpen] = useState(!isSmallScreen);
-  const [rightOpen, setRightOpen] = useState(!isSmallScreen);
   const [headerHeight, setHeaderHeight] = useState(0);
 
   const headerRef = useRef(null);
+
+
+  const handleFilter=(filterData)=>{
+    console.log(">>>>>>filters",filterData)
+    setFilters(filterData)
+  }
 
   useEffect(() => {
     if (headerRef.current) {
@@ -29,16 +34,13 @@ function Main({ child,contentRef,left_props, isVisible }) {
 
   useEffect(() => {
     setLeftOpen(!isSmallScreen);
-    setRightOpen(!isSmallScreen);
   }, [isSmallScreen]);
 
   const toggleLeftDrawer = (open) => () => {
     setLeftOpen(open);
   };
 
-  const toggleRightDrawer = (open) => () => {
-    setRightOpen(open);
-  };
+
 
   return (
     <div>
@@ -50,15 +52,13 @@ function Main({ child,contentRef,left_props, isVisible }) {
           <Button className="toggle-btn left" onClick={toggleLeftDrawer(!leftOpen)}>
             <ArrowCircleRightIcon />
           </Button>
-          {/* <Button className="toggle-btn right" onClick={toggleRightDrawer(!rightOpen)}>
-            <ArrowCircleLeftIcon />
-          </Button> */}
+          
         </>
       )}
 
       {isVisible && (
         <>
-          {(!isSmallScreen || leftOpen) && <LeftSidebar isOpen={leftOpen} left_props={left_props} headerHeight={headerHeight} toggleDrawer={toggleLeftDrawer} />}
+          {(!isSmallScreen || leftOpen) && <LeftSidebar isOpen={leftOpen} handleFilter={handleFilter} handleClear={handleClear} left_props={left_props} headerHeight={headerHeight} toggleDrawer={toggleLeftDrawer} />}
         </>
       )}
 
