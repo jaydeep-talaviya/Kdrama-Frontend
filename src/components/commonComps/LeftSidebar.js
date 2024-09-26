@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 
 
 
-const LeftSidebar = ({ isOpen, handleFilter,handleClear, left_props, headerHeight, toggleDrawer }) => {
+const LeftSidebar = ({ isOpen, handleFilter,handleClear,filters, left_props, headerHeight, toggleDrawer }) => {
   const theme = useTheme();
   const isMediumScreenOrLarger = useMediaQuery(theme.breakpoints.up('md'));
 
@@ -34,6 +34,15 @@ const LeftSidebar = ({ isOpen, handleFilter,handleClear, left_props, headerHeigh
   const handleReset=()=>{
     handleClear()
   }
+
+  useEffect(()=>{
+    if (Object.keys(filters).length === 0){
+      setStartDate(dayjs('1924-01-01'))
+      setEndDate(dayjs())
+      setSelectedTvChannels([])
+      setSelectedGenres([])
+    }
+  },[filters])
 
 
   // Handler for selecting/unselecting genres
@@ -98,10 +107,11 @@ const LeftSidebar = ({ isOpen, handleFilter,handleClear, left_props, headerHeigh
           </Typography>
           </Button>
         </Box>
+        {Object.keys(filters).length > 0 &&
         <Box sx={{
             display:"flex",justifyContent:"center",marginY:3
           }}>
-          <Button variant="contained" onClick={()=>handleSubmit()} sx={{justifyContent:"center"}}>
+          <Button variant="contained" onClick={()=>handleReset()} sx={{justifyContent:"center"}}>
           <Typography variant="p" sx={{
             fontFamily: "Gloria Hallelujah",
             fontWeight: 700, textAlign: 'center'
@@ -110,6 +120,7 @@ const LeftSidebar = ({ isOpen, handleFilter,handleClear, left_props, headerHeigh
           </Typography>
           </Button>
         </Box>
+        }
 
           <Typography variant="h6" sx={{
             fontFamily: "Gloria Hallelujah",

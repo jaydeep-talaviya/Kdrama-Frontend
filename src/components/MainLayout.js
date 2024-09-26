@@ -11,7 +11,7 @@ import Header from './headers/Header';
 import kdrama_bg from '../images/kdrama_bg.jpg';
 import './Main.css';
 
-function Main({ child,contentRef,setFilters,handleClear,left_props, isVisible }) {
+function Main({ child,contentRef,setFilters,handleClear,filters,left_props, isVisible }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -58,7 +58,7 @@ function Main({ child,contentRef,setFilters,handleClear,left_props, isVisible })
 
       {isVisible && (
         <>
-          {(!isSmallScreen || leftOpen) && <LeftSidebar isOpen={leftOpen} handleFilter={handleFilter} handleClear={handleClear} left_props={left_props} headerHeight={headerHeight} toggleDrawer={toggleLeftDrawer} />}
+          {(!isSmallScreen || leftOpen) && <LeftSidebar isOpen={leftOpen} handleFilter={handleFilter} filters={filters} handleClear={handleClear} left_props={left_props} headerHeight={headerHeight} toggleDrawer={toggleLeftDrawer} />}
         </>
       )}
 
