@@ -22,7 +22,6 @@ function Main({ child,contentRef,setFilters,handleClear,filters,left_props, isVi
 
 
   const handleFilter=(filterData)=>{
-    console.log(">>>>>>filters",filterData)
     setFilters(filterData)
   }
 
@@ -103,7 +102,7 @@ function Main({ child,contentRef,setFilters,handleClear,filters,left_props, isVi
           }}
         >
           <div style={{height: `calc(100vh - ${headerHeight+30}px)`,
-          overflowY:"scroll"}} 
+          overflowY:"auto",  overflowX: "hidden" /* Prevent horizontal scrolling */        }} 
           ref={contentRef}>
           {child}
           </div>

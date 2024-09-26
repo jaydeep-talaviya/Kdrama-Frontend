@@ -27,7 +27,6 @@ const LeftSidebar = ({ isOpen, handleFilter,handleClear,filters, left_props, hea
   
     const start_date = startDate.$d.toLocaleDateString('en-CA');
     const end_date = endDate.$d.toLocaleDateString('en-CA');
-   console.log(">start_dat",startDate)
     handleFilter({'start_date':start_date,'end_date':end_date,
       'genres':selectedGenres,"tv_channels":selectedTvChannels})
   }

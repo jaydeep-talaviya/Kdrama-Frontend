@@ -46,7 +46,7 @@ const DramaOverlay = styled(Box)({
   alignItems: 'center',
   objectFit:'unset',
   padding:"10px",
-  overflowY:"scroll",
+  overflowY:"auto",
   paddingY:"30px"
 });
 

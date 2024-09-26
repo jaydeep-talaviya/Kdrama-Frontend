@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Main from './MainLayout';
 import MainContent from './commonComps/MainContent';
+import Loader from './commonComps/Loader'; // Import Loader component
 import apiClient from '../AxiosIntercepter';
+import { debounce } from 'lodash'; // Make sure to install lodash
 
 function Kdrama() {
   const [all_genres, SetAllGenres] = useState([]);
@@ -9,10 +11,12 @@ function Kdrama() {
   const [dramas, setDramas] = useState([]); // State to hold the drama list
   const [error, setError] = useState(null);
   const [offset, setOffset] = useState(0); // Offset for pagination
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false); // Loading state for infinite scroll
+  const [initialLoading, setInitialLoading] = useState(true); // Loading state for the initial fetch or filter
   const limit = 12; // Limit of items per fetch
   const [filters, setFilters] = useState({});
   const contentRef = useRef(); // Ref for the MainContent
+  const fetchCalledRef = useRef(false);
 
   // Fetch genres and TV channels
   useEffect(() => {
@@ -32,6 +36,7 @@ function Kdrama() {
   const handleClear = () => {
     setFilters({});
     resetDramas(); // Clear current dramas and reset the offset
+    fetchCalledRef.current = !fetchCalledRef.current; // Mark as called
   };
 
   // Function to reset dramas and offset
@@ -63,7 +68,6 @@ function Kdrama() {
         }
       }
 
-      console.log("Fetching:", `/drama?limit=${limit}&offset=${offset}${filter_condition}`);
       const response = await apiClient.get(`/drama?limit=${limit}&offset=${offset}${filter_condition}`);
       const newDramas = response.data.data;
 
@@ -82,49 +86,75 @@ function Kdrama() {
       setError(error.message);
     } finally {
       setLoading(false); // Reset loading state
+      setInitialLoading(false); // Mark initial loading as false after first fetch
     }
   };
 
   // Trigger fetching dramas when filters are applied or cleared
   useEffect(() => {
+    console.log(">>>>>>>>>",filters)
+    setInitialLoading(true); // Show loader only for initial load
     resetDramas(); // Clear dramas and reset the offset when filters change
+    if (Object.keys(filters).length > 0){
+      fetchCalledRef.current = false; // Mark as called
+    }
   }, [filters]);
 
-  // Fetch new dramas when offset is reset
+  // Fetch new dramas when offset is reset or on initial load
   useEffect(() => {
-    if (offset === 0 && dramas.length === 0) {
-      fetchDramas(); // Fetch new dramas after resetting the offset
+    if (offset === 0 && dramas.length === 0 && !loading && !fetchCalledRef.current) {
+      console.log(">>>>>>>", offset, dramas.length, loading);
+      fetchDramas();
+      fetchCalledRef.current = true; // Mark as called
     }
-  }, [offset, dramas]);
+  }, [offset, loading]);
 
   // Scroll event listener inside MainContent
-  useEffect(() => {
-    const handleScroll = () => {
-      if (contentRef.current) {
-        const { scrollTop, clientHeight, scrollHeight } = contentRef.current;
-        if (scrollTop + clientHeight >= scrollHeight - 50 && !loading) {
-          fetchDramas(); // Fetch more dramas when scrolled near bottom
-        }
-      }
-    };
 
-    const contentElement = contentRef.current;
-    if (contentElement) {
-      contentElement.addEventListener('scroll', handleScroll);
+  const handleScroll = debounce(() => {
+    if (contentRef.current) {
+      const { scrollTop, clientHeight, scrollHeight } = contentRef.current;
+
+      if (scrollTop !== 0 && scrollTop + clientHeight >= scrollHeight - 50 && !loading) {
+        console.log(">>>>>>>>", scrollTop, clientHeight, scrollHeight);
+        fetchDramas(); // Fetch more dramas when scrolled near bottom
+      }
     }
+  }, 200); // Adjust the delay as needed
 
+
+  useEffect(() => {
+    const refCurrent = contentRef.current;
+    if (refCurrent) {
+      refCurrent.addEventListener('scroll', handleScroll);
+    }
+    
     return () => {
-      if (contentElement) {
-        contentElement.removeEventListener('scroll', handleScroll); // Cleanup listener on unmount
+      if (refCurrent) {
+        refCurrent.removeEventListener('scroll', handleScroll);
       }
     };
-  }, [loading]);
+  }, [loading]); // Add loading to dependencies if necessary
+
 
   const left_props = { genres: all_genres, tv_channels: all_tv_channels };
 
   return (
     <div>
-      <Main child={<MainContent dramas={dramas} />} contentRef={contentRef} setFilters={setFilters} handleClear={handleClear} filters={filters} left_props={left_props} isVisible={true} />
+      <Main
+        child={
+          <>
+            {/* Show loader only for initial loading or when filters are applied */}
+            {initialLoading ? <Loader /> : <MainContent dramas={dramas} />} {/* Conditionally show loader */}
+          </>
+        }
+        contentRef={contentRef}
+        setFilters={setFilters}
+        handleClear={handleClear}
+        filters={filters}
+        left_props={left_props}
+        isVisible={true}
+      />
     </div>
   );
 }
