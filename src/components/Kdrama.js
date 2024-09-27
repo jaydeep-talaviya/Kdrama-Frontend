@@ -34,19 +34,24 @@ function Kdrama() {
   }, []);
 
   const handleClear = () => {
+    console.log(">>>> handle clear")
     setFilters({});
     resetDramas(); // Clear current dramas and reset the offset
-    fetchCalledRef.current = !fetchCalledRef.current; // Mark as called
+    fetchCalledRef.current = false; // Mark as called
+    
   };
 
   // Function to reset dramas and offset
   const resetDramas = () => {
+    // console.log(">>>step 222")
     setDramas([]); // Clear dramas
     setOffset(0);  // Reset the offset to 0
+    
   };
 
   // Function to fetch dramas based on the current offset
   const fetchDramas = async () => {
+    console.log(">>>>>loading",loading)
     if (loading) return; // Prevent fetching if already loading
     setLoading(true); // Set loading to true
     try {
@@ -85,6 +90,7 @@ function Kdrama() {
       console.error("Error fetching dramas:", error.message);
       setError(error.message);
     } finally {
+      // console.log(">>>>>>comming in finally",loading)
       setLoading(false); // Reset loading state
       setInitialLoading(false); // Mark initial loading as false after first fetch
     }
@@ -92,22 +98,30 @@ function Kdrama() {
 
   // Trigger fetching dramas when filters are applied or cleared
   useEffect(() => {
-    console.log(">>>>>>>>>",filters)
     setInitialLoading(true); // Show loader only for initial load
+
     resetDramas(); // Clear dramas and reset the offset when filters change
     if (Object.keys(filters).length > 0){
       fetchCalledRef.current = false; // Mark as called
+
     }
+    // else{
+    //   fetchDramas()
+    // }
+    console.log(">>>>>>>>>>",filters)
   }, [filters]);
 
   // Fetch new dramas when offset is reset or on initial load
   useEffect(() => {
+    console.log(">>>>>>>", offset, dramas.length,fetchCalledRef.current, loading,initialLoading);
+
     if (offset === 0 && dramas.length === 0 && !loading && !fetchCalledRef.current) {
-      console.log(">>>>>>>", offset, dramas.length, loading);
+
       fetchDramas();
       fetchCalledRef.current = true; // Mark as called
+
     }
-  }, [offset, loading]);
+  }, [offset, loading,fetchCalledRef.current]);
 
   // Scroll event listener inside MainContent
 
@@ -116,7 +130,6 @@ function Kdrama() {
       const { scrollTop, clientHeight, scrollHeight } = contentRef.current;
 
       if (scrollTop !== 0 && scrollTop + clientHeight >= scrollHeight - 50 && !loading) {
-        console.log(">>>>>>>>", scrollTop, clientHeight, scrollHeight);
         fetchDramas(); // Fetch more dramas when scrolled near bottom
       }
     }
