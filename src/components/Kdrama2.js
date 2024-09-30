@@ -4,14 +4,8 @@ import MainContent from './commonComps/MainContent';
 import Loader from './commonComps/Loader'; // Import Loader component
 import apiClient from '../AxiosIntercepter';
 import { debounce } from 'lodash'; // Make sure to install lodash
-import CommonLayout from './CommonLayout';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { styled, useTheme } from '@mui/material/styles';
-import LeftSidebar from './commonComps/LeftSidebar';
-import { Button } from '@mui/material';
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
-function Kdrama() {
+function Kdrama2() {
   const [all_genres, SetAllGenres] = useState([]);
   const [all_tv_channels, SetAllTvChannels] = useState([]);
   const [dramas, setDramas] = useState([]); // State to hold the drama list
@@ -23,11 +17,6 @@ function Kdrama() {
   const [filters, setFilters] = useState({});
   const contentRef = useRef(); // Ref for the MainContent
   const fetchCalledRef = useRef(false);
-
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const [leftOpen, setLeftOpen] = useState(!isSmallScreen);
-  const [headerHeight, setHeaderHeight] = useState(0);
 
   // Fetch genres and TV channels
   useEffect(() => {
@@ -159,44 +148,28 @@ function Kdrama() {
       }
     };
   }, [loading]); // Add loading to dependencies if necessary
-  
-  useEffect(() => {
-    setLeftOpen(!isSmallScreen);
-  }, [isSmallScreen]);
-
-  const toggleLeftDrawer = (open) => () => {
-    setLeftOpen(open);
-  };
 
 
   const left_props = { genres: all_genres, tv_channels: all_tv_channels };
 
   return (
     <div>
-      <CommonLayout
-      contentRef={contentRef}
-      leftOpen={leftOpen}
-      isSmallScreen={isSmallScreen} 
-      setHeaderHeight={setHeaderHeight}
-      headerHeight={headerHeight}
-        >
-        {isSmallScreen && (
-            <>
-            <Button className="toggle-btn left" onClick={toggleLeftDrawer(!leftOpen)}>
-                <ArrowCircleRightIcon />
-            </Button>
-            
-            </>
-        )}
-       
-        {(!isSmallScreen || leftOpen) && <LeftSidebar isOpen={leftOpen} handleFilter={setFilters} filters={filters} handleClear={handleClear} left_props={left_props} headerHeight={headerHeight}  toggleDrawer={toggleLeftDrawer} />}
-       
+      <Main
+        child={
           <>
+            {/* Show loader only for initial loading or when filters are applied */}
             {initialLoading ? <Loader /> : <MainContent dramas={dramas} />} {/* Conditionally show loader */}
           </>
-      </CommonLayout>
+        }
+        contentRef={contentRef}  // for scrolling -> kdrama,kmovie, kperson
+        setFilters={setFilters} // for 3 all
+        handleClear={handleClear} // for 3 all
+        filters={filters} // for 2 all
+        left_props={left_props} //for 3 all
+        isVisible={true} // change if single drama then dont show else list -> show
+      />
     </div>
   );
 }
 
-export default Kdrama;
+export default Kdrama2;

@@ -5,6 +5,9 @@ import MainLayout from './components/MainLayout';
 import Dashboard from './components/Dashboard/Dashboard'
 import MainContent from './components/commonComps/MainContent';
 import Kdrama from './components/Kdrama';
+import KMovie from './components/KMovie';
+import CommonLayout from './components/CommonLayout';
+// import Kdrama2 from './components/Kdrama2';
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
      {/* <MainLayout child={<Dashboard />} isVisible={false} /> */}
 
      {/* <Dashboard/> */}
+     {/* <Kdrama/> */}
+     {/* <KMovie/> */}
+     {/* <CommonLayout/> */}
      <Kdrama/>
     </div>
   );

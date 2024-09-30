@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 
 
 
-const LeftSidebar = ({ isOpen, handleFilter,handleClear,filters, left_props, headerHeight, toggleDrawer }) => {
+const LeftSidebar = ({ isOpen, handleFilter, handleClear, filters, left_props, headerHeight, toggleDrawer }) => {
   const theme = useTheme();
   const isMediumScreenOrLarger = useMediaQuery(theme.breakpoints.up('md'));
 
@@ -24,24 +24,26 @@ const LeftSidebar = ({ isOpen, handleFilter,handleClear,filters, left_props, hea
   const [endDate, setEndDate] = useState(dayjs());
 
   const handleSubmit = () => {
-  
+
     const start_date = startDate.$d.toLocaleDateString('en-CA');
     const end_date = endDate.$d.toLocaleDateString('en-CA');
-    handleFilter({'start_date':start_date,'end_date':end_date,
-      'genres':selectedGenres,"tv_channels":selectedTvChannels})
+    handleFilter({
+      'start_date': start_date, 'end_date': end_date,
+      'genres': selectedGenres, "tv_channels": selectedTvChannels
+    })
   }
-  const handleReset=()=>{
+  const handleReset = () => {
     handleClear()
   }
 
-  useEffect(()=>{
-    if (Object.keys(filters).length === 0){
+  useEffect(() => {
+    if (Object.keys(filters).length === 0) {
       setStartDate(dayjs('1924-01-01'))
       setEndDate(dayjs())
       setSelectedTvChannels([])
       setSelectedGenres([])
     }
-  },[filters])
+  }, [filters])
 
 
   // Handler for selecting/unselecting genres
@@ -58,6 +60,7 @@ const LeftSidebar = ({ isOpen, handleFilter,handleClear,filters, left_props, hea
     );
   };
 
+  console.log("..........headerHeight",headerHeight)
 
   return (
     <Drawer
@@ -67,10 +70,9 @@ const LeftSidebar = ({ isOpen, handleFilter,handleClear,filters, left_props, hea
       variant="persistent"  // Make the drawer persistent
       PaperProps={{
         sx: {
-          position: 'absolute', // Absolute positioning to keep it from covering the main screen
           top: 'unset',  // Adjust according to the header's height
           backgroundColor: '#112e4a8c',
-          height: `calc(100vh - ${headerHeight}px)`
+          height: `calc(100vh - ${headerHeight + 30}px)`
 
         },
       }}
@@ -81,7 +83,7 @@ const LeftSidebar = ({ isOpen, handleFilter,handleClear,filters, left_props, hea
         // onKeyDown={toggleDrawer(false)}
         style={{ width: 250, padding: '10px' }}
       >
-        
+
 
         {/* start */}
         <Box sx={{
@@ -93,33 +95,33 @@ const LeftSidebar = ({ isOpen, handleFilter,handleClear,filters, left_props, hea
           color: 'white',
           borderRadius: '10px'
         }}>
-         
+
           <Box sx={{
-            display:"flex",justifyContent:"center",marginY:3
+            display: "flex", justifyContent: "center", marginY: 3
           }}>
-          <Button variant="contained" onClick={()=>handleSubmit()} sx={{justifyContent:"center"}}>
-          <Typography variant="p" sx={{
-            fontFamily: "Gloria Hallelujah",
-            fontWeight: 700, textAlign: 'center'
-          }}>
-            Apply Filter
-          </Typography>
-          </Button>
-        </Box>
-        {Object.keys(filters).length > 0 &&
-        <Box sx={{
-            display:"flex",justifyContent:"center",marginY:3
-          }}>
-          <Button variant="contained" onClick={()=>handleReset()} sx={{justifyContent:"center"}}>
-          <Typography variant="p" sx={{
-            fontFamily: "Gloria Hallelujah",
-            fontWeight: 700, textAlign: 'center'
-          }}>
-            Clear
-          </Typography>
-          </Button>
-        </Box>
-        }
+            <Button variant="contained" onClick={() => handleSubmit()} sx={{ justifyContent: "center" }}>
+              <Typography variant="p" sx={{
+                fontFamily: "Gloria Hallelujah",
+                fontWeight: 700, textAlign: 'center'
+              }}>
+                Apply Filter
+              </Typography>
+            </Button>
+          </Box>
+          {Object.keys(filters).length > 0 &&
+            <Box sx={{
+              display: "flex", justifyContent: "center", marginY: 3
+            }}>
+              <Button variant="contained" onClick={() => handleReset()} sx={{ justifyContent: "center" }}>
+                <Typography variant="p" sx={{
+                  fontFamily: "Gloria Hallelujah",
+                  fontWeight: 700, textAlign: 'center'
+                }}>
+                  Clear
+                </Typography>
+              </Button>
+            </Box>
+          }
 
           <Typography variant="h6" sx={{
             fontFamily: "Gloria Hallelujah",

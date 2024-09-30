@@ -46,20 +46,9 @@ function Main({ child,contentRef,setFilters,handleClear,filters,left_props, isVi
       {/* Header Section */}
       <Header ref={headerRef} className="header" />
 
-      {isSmallScreen && (
-        <>
-          <Button className="toggle-btn left" onClick={toggleLeftDrawer(!leftOpen)}>
-            <ArrowCircleRightIcon />
-          </Button>
-          
-        </>
-      )}
+    
 
-      {isVisible && (
-        <>
-          {(!isSmallScreen || leftOpen) && <LeftSidebar isOpen={leftOpen} handleFilter={handleFilter} filters={filters} handleClear={handleClear} left_props={left_props} headerHeight={headerHeight} toggleDrawer={toggleLeftDrawer} />}
-        </>
-      )}
+   
 
       {/* Main content area */}
       <Box
@@ -101,6 +90,7 @@ function Main({ child,contentRef,setFilters,handleClear,filters,left_props, isVi
             transition: 'margin-left 0.3s ease',  // Smooth transition effect  
           }}
         >
+        
           <div style={{height: `calc(100vh - ${headerHeight+30}px)`,
           overflowY:"auto",  overflowX: "hidden" /* Prevent horizontal scrolling */        }} 
           ref={contentRef}>
