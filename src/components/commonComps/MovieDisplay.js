@@ -1,9 +1,8 @@
-import React from 'react';
+import React from 'react'
 import { Card, CardContent, CardMedia, Typography, Box, Chip } from '@mui/material';
 import { styled } from '@mui/system';
 
-// Create styled components
-const DramaCardStyled = styled(Card)({
+const MovieCardStyled = styled(Card)({
   position: 'relative',
   width: 250,
   margin: 20,
@@ -21,7 +20,7 @@ const DramaCardStyled = styled(Card)({
   },
 });
 
-const DramaImage = styled(CardMedia)({
+const MovieImage = styled(CardMedia)({
   height: 280,
   objectFit:'unset',
   filter: 'brightness(100%)', // Full brightness initially
@@ -31,12 +30,13 @@ const DramaImage = styled(CardMedia)({
   },
 });
 
-const DramaOverlay = styled(Box)({
+
+const MovieOverlay = styled(Box)({
   position: 'absolute',
   top: 0,
   left: 0,
   height: '100%',
-  width:'100%',
+  width:"100%",
   backgroundColor: 'rgba(0, 0, 0, 0.7)', // Slightly transparent black overlay
   color: 'white',
   opacity: 0, // Hidden by default
@@ -50,31 +50,31 @@ const DramaOverlay = styled(Box)({
   overflowY:"auto",
   paddingY:"30px"
 });
-
-const DramaTitle = styled(Typography)({
+const MovieTitle = styled(Typography)({
   fontWeight: 'bold',
   fontSize: '1.2rem',
   textAlign: 'center',
 });
 
-const DramaCard = ({ drama }) => {
-  const { drama_name, image_url, other_names, tv_channel, airing_dates_start, airing_dates_end, extra_info } = drama;
+
+const MovieCard = ({ movie }) => {
+  const { movie_name, image_url, other_names, duration, airing_date, extra_info } = movie;
 
   return (
-    <DramaCardStyled>
-      {/* Drama Image */}
-      <DramaImage
+    <MovieCardStyled>
+      {/* Movie Image */}
+      <MovieImage
         component="img"
         image={image_url}
-        alt={drama_name}
+        alt={movie_name}
       />
-              <DramaTitle>{drama_name}</DramaTitle>
+              <MovieTitle>{movie_name}</MovieTitle>
 
       {/* Overlay with details */}
-      <DramaOverlay className="overlay">
+      <MovieOverlay className="overlay">
         <Typography variant="body2"><strong>Other Names:</strong>{other_names.join(', ')}</Typography>
-        <Typography variant="body1"><strong>TV Channel:</strong> {tv_channel}</Typography>
-        <Typography variant="body2"><strong>Airing Dates:</strong> {airing_dates_start} - {airing_dates_end}</Typography>
+        <Typography variant="body1"><strong>Duration:</strong> {duration}</Typography>
+        <Typography variant="body2"><strong>Airing Date:</strong> {airing_date}</Typography>
 
         {/* Genres */}
         <Box sx={{ display: 'flex', flexWrap: 'wrap', 
@@ -92,20 +92,12 @@ const DramaCard = ({ drama }) => {
             />
           ))}
         </Box>
-      </DramaOverlay>
-    </DramaCardStyled>
+      </MovieOverlay>
+    </MovieCardStyled>
   );
 };
 
-// Example component to render the DramaCard
-// const DramaDisplay = ({ dramas }) => {
-//   return (
-//     <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
-//       {dramas.map((drama, index) => (
-//         <DramaCard key={index} drama={drama} />
-//       ))}
-//     </Box>
-//   );
-// };
 
-export default DramaCard;
+export default MovieCard;
+
+

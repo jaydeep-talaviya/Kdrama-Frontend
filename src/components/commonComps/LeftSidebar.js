@@ -15,7 +15,7 @@ const LeftSidebar = ({ isOpen, handleFilter, handleClear, filters, left_props, h
   const theme = useTheme();
   const isMediumScreenOrLarger = useMediaQuery(theme.breakpoints.up('md'));
 
-  const { genres, tv_channels } = left_props;
+  const { genres, tv_channels,jobs } = left_props;
 
   // States to store selected genres and TV channels
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -60,7 +60,7 @@ const LeftSidebar = ({ isOpen, handleFilter, handleClear, filters, left_props, h
     );
   };
 
-  console.log("..........headerHeight",headerHeight)
+  // console.log("..........headerHeight",headerHeight)
 
   return (
     <Drawer
@@ -136,8 +136,9 @@ const LeftSidebar = ({ isOpen, handleFilter, handleClear, filters, left_props, h
             <CustomDatePicker startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
           </Box>
 
-
-          {/* Genres Checkbox Group */}
+      {/* Genres Checkbox Group */}
+          {genres.length > 0 &&
+          <>          
           <Typography variant="h6" sx={{
             fontFamily: "Gloria Hallelujah",
             fontWeight: 700, textAlign: 'center'
@@ -148,8 +149,12 @@ const LeftSidebar = ({ isOpen, handleFilter, handleClear, filters, left_props, h
             selectedItems={selectedGenres}
             handleSelect={handleGenreSelect}
           />
+          </>
+        }
 
           {/* TV Channels Checkbox Group */}
+          {tv_channels.length > 0 && 
+          <>
           <Typography variant="h6" sx={{
             fontFamily: "Gloria Hallelujah",
             fontWeight: 700, textAlign: 'center'
@@ -160,6 +165,8 @@ const LeftSidebar = ({ isOpen, handleFilter, handleClear, filters, left_props, h
             selectedItems={selectedTvChannels}
             handleSelect={handleTvChannelSelect}
           />
+          </>
+        }
 
         </Box>
 

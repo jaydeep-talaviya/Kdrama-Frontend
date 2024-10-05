@@ -20,9 +20,9 @@ function App() {
 
      {/* <Dashboard/> */}
      {/* <Kdrama/> */}
-     {/* <KMovie/> */}
+     <KMovie/>
      {/* <CommonLayout/> */}
-     <Kdrama/>
+     {/* <Kdrama/> */}
     </div>
   );
 }

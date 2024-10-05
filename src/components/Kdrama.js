@@ -116,9 +116,7 @@ function Kdrama() {
       fetchCalledRef.current = false; // Mark as called
 
     }
-    // else{
-    //   fetchDramas()
-    // }
+  
     console.log(">>>>>>>>>>",filters)
   }, [filters]);
 
@@ -169,7 +167,7 @@ function Kdrama() {
   };
 
 
-  const left_props = { genres: all_genres, tv_channels: all_tv_channels };
+  const left_props = { genres: all_genres, tv_channels: all_tv_channels,jobs:[] };
 
   return (
     <div>
@@ -192,7 +190,7 @@ function Kdrama() {
         {(!isSmallScreen || leftOpen) && <LeftSidebar isOpen={leftOpen} handleFilter={setFilters} filters={filters} handleClear={handleClear} left_props={left_props} headerHeight={headerHeight}  toggleDrawer={toggleLeftDrawer} />}
        
           <>
-            {initialLoading ? <Loader /> : <MainContent dramas={dramas} />} {/* Conditionally show loader */}
+            {initialLoading ? <Loader /> : <MainContent dramas_movies_persons={dramas} type={"drama"} />} {/* Conditionally show loader */}
           </>
       </CommonLayout>
     </div>
