@@ -7,6 +7,7 @@ import MainContent from './components/commonComps/MainContent';
 import Kdrama from './components/Kdrama';
 import KMovie from './components/KMovie';
 import CommonLayout from './components/CommonLayout';
+import SingleKdrama from './components/SingleKdrama';
 // import Kdrama2 from './components/Kdrama2';
 
 function App() {
@@ -18,11 +19,12 @@ function App() {
      {/* <MainLayout child={<MainContent />} isVisible={true} /> */}
      {/* <MainLayout child={<Dashboard />} isVisible={false} /> */}
 
-     {/* <Dashboard/> */}
+     <Dashboard/>
      {/* <Kdrama/> */}
-     <KMovie/>
+     {/* <KMovie/> */}
      {/* <CommonLayout/> */}
      {/* <Kdrama/> */}
+     {/* <SingleKdrama/> */}
     </div>
   );
 }

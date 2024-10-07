@@ -9,7 +9,7 @@ import { Box, Typography } from '@mui/material';
 import kdrama_bg from '../images/kdrama_bg.jpg';
 
 
-function CommonLayout({children,contentRef,leftOpen,isSmallScreen,setHeaderHeight,headerHeight}) {
+function CommonLayout({children,contentRef,leftOpen,isSmallScreen,setHeaderHeight,headerHeight,SinglePage=false}) {
     
     const headerRef = useRef(null);
 
@@ -66,8 +66,9 @@ function CommonLayout({children,contentRef,leftOpen,isSmallScreen,setHeaderHeigh
           transition: 'margin-left 0.3s ease',  // Smooth transition effect  
         }}
       >
-          <div style={{height: `calc(100vh - ${headerHeight+30}px)`,
-          overflowY:"auto",  overflowX: "hidden" /* Prevent horizontal scrolling */        }} 
+          <div style={{height: SinglePage?"unset":`calc(100vh - ${headerHeight+30}px)`,
+          overflowY:"auto",  overflowX: "hidden",
+          width:SinglePage?"100%":"unset" /* Prevent horizontal scrolling */        }} 
           ref={contentRef}>
             {children}
 
