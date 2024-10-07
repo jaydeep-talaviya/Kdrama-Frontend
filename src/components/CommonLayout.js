@@ -7,9 +7,10 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import LeftSidebar from './commonComps/LeftSidebar';
 import { Box, Typography } from '@mui/material';
 import kdrama_bg from '../images/kdrama_bg.jpg';
+import FloatingBackButton from './commonComps/FloatingBackButton';
 
 
-function CommonLayout({children,contentRef,leftOpen,isSmallScreen,setHeaderHeight,headerHeight,SinglePage=false}) {
+function CommonLayout({children,contentRef,leftOpen,isSmallScreen,setHeaderHeight,headerHeight,SinglePage=false,showFloat=true}) {
     
     const headerRef = useRef(null);
 
@@ -21,7 +22,9 @@ function CommonLayout({children,contentRef,leftOpen,isSmallScreen,setHeaderHeigh
     
       
   return (
-    <div>
+    <
+      
+    >
     {/* Header Section */}
     <Header ref={headerRef} className="header" />
 
@@ -30,7 +33,7 @@ function CommonLayout({children,contentRef,leftOpen,isSmallScreen,setHeaderHeigh
     <Box
       sx={{
         position: 'relative',
-        minHeight: `calc(100vh - ${headerHeight}px)`, // Subtract headerHeight from 100vh
+        minHeight: `calc(100vh - ${headerHeight+1}px)`, // Subtract headerHeight from 100vh
         backgroundImage: `url(${kdrama_bg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -73,9 +76,11 @@ function CommonLayout({children,contentRef,leftOpen,isSmallScreen,setHeaderHeigh
             {children}
 
           </div>
+          {showFloat&&<FloatingBackButton/>}
+          
       </Box>
     </Box>
-  </div>
+  </>
 
   )
 }

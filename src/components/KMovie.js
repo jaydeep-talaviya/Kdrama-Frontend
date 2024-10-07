@@ -20,7 +20,7 @@ function KMovie() {
   const [initialLoading, setInitialLoading] = useState(true); // Loading state for the initial fetch or filter
   const limit = 12; // Limit of items per fetch
   const [filters, setFilters] = useState({});
-  const contentRef = useRef(); // Ref for the MainContent
+  const contentRef = useRef(null); // Ref for the MainContent
   const fetchCalledRef = useRef(false);
 
   const theme = useTheme();

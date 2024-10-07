@@ -8,6 +8,8 @@ import Kdrama from './components/Kdrama';
 import KMovie from './components/KMovie';
 import CommonLayout from './components/CommonLayout';
 import SingleKdrama from './components/SingleKdrama';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 // import Kdrama2 from './components/Kdrama2';
 
 function App() {
@@ -15,16 +17,25 @@ function App() {
     <div className="App"
    
     >
-     {/* <Header/> */}
-     {/* <MainLayout child={<MainContent />} isVisible={true} /> */}
-     {/* <MainLayout child={<Dashboard />} isVisible={false} /> */}
 
-     <Dashboard/>
-     {/* <Kdrama/> */}
-     {/* <KMovie/> */}
-     {/* <CommonLayout/> */}
-     {/* <Kdrama/> */}
-     {/* <SingleKdrama/> */}
+
+<BrowserRouter>
+  <Routes>
+        {/* Dashboard Route */}
+        <Route path="/" element={<Dashboard />} />
+
+        {/* Kdrama Route */}
+        <Route path="/kdrama" element={<Kdrama />} />
+
+        {/* KMovie Route */}
+        <Route path="/kmovie" element={<KMovie />} />
+
+        {/* Single Kdrama Route with dynamic ID */}
+        <Route path="/kdrama/:id" element={<SingleKdrama />} />
+      </Routes>
+    </BrowserRouter>
+
+  
     </div>
   );
 }

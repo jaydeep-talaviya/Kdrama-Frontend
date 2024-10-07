@@ -5,7 +5,7 @@ import InfiniteSlider from './InfiniteSlider';
 import CommonLayout from '../CommonLayout';
 
 function Dashboard() {
-  const contentRef = useRef(); // Ref for the MainContent
+  const contentRef = useRef(null); // Ref for the MainContent
   const [headerHeight, setHeaderHeight] = useState(0);
 
   return (
@@ -17,6 +17,7 @@ function Dashboard() {
       setHeaderHeight={setHeaderHeight}
       headerHeight={headerHeight}
       SinglePage={true}
+      showFloat={false}
     >
           <DynContainerDivs/>
           <InfiniteSlider/>

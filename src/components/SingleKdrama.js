@@ -8,7 +8,7 @@ import { Grid, Container } from '@mui/material';
 import CastInfo from './commonComps/CastInfo';
 
 function SingleKdrama() {
-  const contentRef = useRef(); // Ref for the MainContent
+  const contentRef = useRef(null); // Ref for the MainContent
   const [headerHeight, setHeaderHeight] = useState(0);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));  // Detect small screen

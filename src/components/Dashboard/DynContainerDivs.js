@@ -15,6 +15,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import './DynContainerDivs.css';
+import { Link } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -28,8 +29,10 @@ const Item = styled(Paper)(({ theme }) => ({
     })
 }));
 
-const menus = ['K-Dramas', 'K-Movies', "K-Actors", "K-Actress", "Upcoming K-Drama", "Upcoming K-Movie"];
-
+// const menus = ['K-Dramas', 'K-Movies', "K-Actors", "K-Actress", "Upcoming K-Drama", "Upcoming K-Movie"];
+const menus = [{route_name:"K-Dramas",route:"/kdrama"},
+    {route_name:"K-Movies",route:"/kmovie"},
+]
 const showOff = [
     { "menu_name": "Kdramas", "val": 10 },
     { "menu_name": "Movies", "val": 11 },
@@ -66,11 +69,13 @@ function DynContainerDivs() {
                                     <List>
                                         {menus.map((val, idx) => (
                                             <ListItem disablePadding key={idx}>
-                                                <ListItemButton sx={{ padding: '4px 3px' }}> {/* Reduced padding */}
+                                                <ListItemButton  component={Link}       // Use Link component to enable navigation
+                                                    to={val.route}         // Specify the path you want to navigate to
+                                                    sx={{ padding: '4px 3px' }}> {/* Reduced padding */}
                                                     <ListItemIcon>
                                                         <NearMeIcon fontSize="small" /> {/* Adjust icon size */}
                                                     </ListItemIcon>
-                                                    <ListItemText primary={val} sx={{ fontSize: '0.9rem' }} /> {/* Adjusted text size */}
+                                                    <ListItemText primary={val.route_name} sx={{ fontSize: '0.9rem' }} /> {/* Adjusted text size */}
                                                 </ListItemButton>
                                             </ListItem>
                                         ))}
