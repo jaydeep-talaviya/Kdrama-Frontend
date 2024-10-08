@@ -31,7 +31,7 @@ function App() {
         <Route path="/kmovie" element={<KMovie />} />
 
         {/* Single Kdrama Route with dynamic ID */}
-        <Route path="/kdrama/:id" element={<SingleKdrama />} />
+        <Route path="/kdrama/:drama_id" element={<SingleKdrama />} />
       </Routes>
     </BrowserRouter>
 

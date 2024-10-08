@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Box, Chip } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Box, Chip,Button } from '@mui/material';
 import { styled } from '@mui/system';
+import { Link } from 'react-router-dom'; // Assuming you're using React Router for navigation
 
 // Create styled components
 const DramaCardStyled = styled(Card)({
@@ -55,10 +56,17 @@ const DramaTitle = styled(Typography)({
   fontSize: '1.2rem',
   textAlign: 'center',
 });
+const NavigationButton = styled(Button)({
+  marginTop: '10px',
+  backgroundColor: '#2196f3',
+  color: 'white',
+  '&:hover': {
+    backgroundColor: '#1976d2',
+  },
+});
 
 const DramaCard = ({ drama }) => {
-  const { drama_name, image_url, other_names, tv_channel, airing_dates_start, airing_dates_end, extra_info } = drama;
-
+  const { _id,drama_name, image_url, other_names, tv_channel, airing_dates_start, airing_dates_end, extra_info } = drama;
   return (
     <DramaCardStyled>
       {/* Drama Image */}
@@ -91,6 +99,9 @@ const DramaCard = ({ drama }) => {
             />
           ))}
         </Box>
+        <Link to={`/kdrama/${_id}`}>
+          <NavigationButton variant="contained">View Details</NavigationButton>
+        </Link>
       </DramaOverlay>
     </DramaCardStyled>
   );

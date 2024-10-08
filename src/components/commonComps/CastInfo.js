@@ -52,25 +52,24 @@ const CastInfo = ({ directed_bys, written_bys, casts_info }) => {
         </Grid>
       </Grid>
 
-      {/* Cast Info Section */}
-      <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', color: '#333', mt: 3 }}>
+      <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', color: '#333', mt: 3, mb: 2 }}>
         Cast
       </Typography>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+      <Grid container spacing={3} sx={{ display: 'flex', justifyContent: 'center' }}>
         {casts_info.map((cast) => (
-          <Box key={cast._id} sx={{ display: 'flex', alignItems: 'center', mb: 2, width: '33.33%' }}>
+          <Grid item xs={6} sm={4} md={3} lg={2} key={cast._id} sx={{ textAlign: 'center' }}>
             <Avatar
               alt={cast.name}
-              src={cast.image || "https://via.placeholder.com/150"}
-              sx={{ width: 56, height: 56, mr: 2 }}
+              src={cast.image || 'https://via.placeholder.com/150'}
+              sx={{ width: 80, height: 80, margin: '0 auto' }}
             />
-            <Typography variant="body1" sx={{ color: '#555' }}>
-              {cast.name}
+            <Typography variant="body1" sx={{ color: '#555', mt: 1 }}>
+              {cast.name} ({cast.native_name})
             </Typography>
-          </Box>
+          </Grid>
         ))}
-      </Box>
-    </Card>
+      </Grid>
+          </Card>
   );
 };
 
