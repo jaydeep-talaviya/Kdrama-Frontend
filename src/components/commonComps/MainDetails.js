@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent, Typography, Box, Grid } from '@mui/material';
 
 function MainDetails({ data }) {
+  console.log("<<<<<<<data",data)
   return (
     <Card
       sx={{
@@ -44,13 +45,15 @@ function MainDetails({ data }) {
           >
             Other Names: {data.other_names.join(', ')}
           </Typography>
-          <Typography
+          {data.genres &&
+           <Typography
             variant="body1"
             color="text.primary"
             sx={{ textAlign: 'left' }}  // Left-align the content
           >
             Genres: {data.genres.join(",")}
-          </Typography>
+          </Typography>}
+          {data.tv_channel &&
           <Typography
             variant="body1"
             color="text.primary"
@@ -58,6 +61,8 @@ function MainDetails({ data }) {
           >
             TV Channel: {data.tv_channel}
           </Typography>
+        }
+          {data.airing_dates_start && data.airing_dates_end &&
           <Typography
             variant="body1"
             color="text.primary"
@@ -68,6 +73,7 @@ function MainDetails({ data }) {
               {data.airing_dates_start} - {data.airing_dates_end}
             </Box>
           </Typography>
+          }
 
           {/* Description with scrollbar and fixed height */}
           <Box

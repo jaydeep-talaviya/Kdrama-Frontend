@@ -1,6 +1,7 @@
 import React from 'react'
-import { Card, CardContent, CardMedia, Typography, Box, Chip } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Box, Chip, Button } from '@mui/material';
 import { styled } from '@mui/system';
+import { Link } from 'react-router-dom'; // Assuming you're using React Router for navigation
 
 const MovieCardStyled = styled(Card)({
   position: 'relative',
@@ -56,9 +57,19 @@ const MovieTitle = styled(Typography)({
   textAlign: 'center',
 });
 
+const NavigationButton = styled(Button)({
+  marginTop: '10px',
+  backgroundColor: '#2196f3',
+  color: 'white',
+  '&:hover': {
+    backgroundColor: '#1976d2',
+  },
+});
 
 const MovieCard = ({ movie }) => {
-  const { movie_name, image_url, other_names, duration, airing_date, extra_info } = movie;
+  console.log(">>>>>>>>movie",movie)
+
+  const { _id,movie_name, image_url, other_names, duration, airing_date, extra_info } = movie;
 
   return (
     <MovieCardStyled>
@@ -92,6 +103,9 @@ const MovieCard = ({ movie }) => {
             />
           ))}
         </Box>
+        <Link to={`/kmovie/${_id}`}>
+          <NavigationButton variant="contained">View Details</NavigationButton>
+        </Link>
       </MovieOverlay>
     </MovieCardStyled>
   );
