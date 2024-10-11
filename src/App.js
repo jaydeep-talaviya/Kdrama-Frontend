@@ -10,6 +10,7 @@ import CommonLayout from './components/CommonLayout';
 import SingleKdrama from './components/SingleKdrama';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SingleMovie from './components/SingleMovie';
+import KPerson from './components/KPerson';
 
 // import Kdrama2 from './components/Kdrama2';
 
@@ -30,6 +31,9 @@ function App() {
 
         {/* KMovie Route */}
         <Route path="/kmovie" element={<KMovie />} />
+
+         {/* KPerson Route */}
+         <Route path="/kperson/:person_type" element={<KPerson />} />
 
         {/* Single Kdrama Route with dynamic ID */}
         <Route path="/kdrama/:drama_id" element={<SingleKdrama />} />

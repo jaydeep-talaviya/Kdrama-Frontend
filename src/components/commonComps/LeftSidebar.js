@@ -20,6 +20,8 @@ const LeftSidebar = ({ isOpen, handleFilter, handleClear, filters, left_props, h
   // States to store selected genres and TV channels
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedTvChannels, setSelectedTvChannels] = useState([]);
+  const [selectedJobs, setSelectedJobs] = useState([]);
+
   const [startDate, setStartDate] = useState(dayjs('1924-01-01'));
   const [endDate, setEndDate] = useState(dayjs());
 
@@ -29,7 +31,8 @@ const LeftSidebar = ({ isOpen, handleFilter, handleClear, filters, left_props, h
     const end_date = endDate.$d.toLocaleDateString('en-CA');
     handleFilter({
       'start_date': start_date, 'end_date': end_date,
-      'genres': selectedGenres, "tv_channels": selectedTvChannels
+      'genres': selectedGenres, "tv_channels": selectedTvChannels,
+      "jobs":selectedJobs
     })
   }
   const handleReset = () => {
@@ -42,6 +45,8 @@ const LeftSidebar = ({ isOpen, handleFilter, handleClear, filters, left_props, h
       setEndDate(dayjs())
       setSelectedTvChannels([])
       setSelectedGenres([])
+      setSelectedJobs([])
+
     }
   }, [filters])
 
@@ -59,8 +64,13 @@ const LeftSidebar = ({ isOpen, handleFilter, handleClear, filters, left_props, h
       prevSelected.includes(id) ? prevSelected.filter((channelId) => channelId !== id) : [...prevSelected, id]
     );
   };
+  // Handler for selecting/unselecting Jobs
+  const handleJobsSelect = (id) => {
+    setSelectedJobs((prevSelected) =>
+      prevSelected.includes(id) ? prevSelected.filter((jobId) => jobId !== id) : [...prevSelected, id]
+    );
+  };
 
-  // console.log("..........headerHeight",headerHeight)
 
   return (
     <Drawer
@@ -164,6 +174,22 @@ const LeftSidebar = ({ isOpen, handleFilter, handleClear, filters, left_props, h
             items={tv_channels}
             selectedItems={selectedTvChannels}
             handleSelect={handleTvChannelSelect}
+          />
+          </>
+        }
+
+         {/* TV Channels Checkbox Group */}
+         {jobs.length > 0 && 
+          <>
+          <Typography variant="h6" sx={{
+            fontFamily: "Gloria Hallelujah",
+            fontWeight: 700, textAlign: 'center'
+          }}>Select Jobs</Typography>
+          <CheckboxGroup
+            label="Select Job"
+            items={jobs}
+            selectedItems={selectedJobs}
+            handleSelect={handleJobsSelect}
           />
           </>
         }

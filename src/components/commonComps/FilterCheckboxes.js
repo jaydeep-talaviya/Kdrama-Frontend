@@ -3,7 +3,6 @@ import { Checkbox, FormControlLabel, FormGroup, Box, Typography } from '@mui/mat
 
 
 const CheckboxGroup = ({ label, items, selectedItems, handleSelect }) => {
-    // console.log(">>>>>>",items,label)
     return (
       <Box sx={{ marginBottom: 4,padding:2,height:"200px",overflowY:'scroll',borderRadius:'5%',background: "#1427468f",
         boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
@@ -11,14 +10,14 @@ const CheckboxGroup = ({ label, items, selectedItems, handleSelect }) => {
         <FormGroup>
           {items.map((item) => (
             <FormControlLabel
-              key={item._id}
+              key={label == "Select Job"?item:item._id}
               control={
                 <Checkbox
-                  checked={selectedItems.includes(item._id)}
-                  onChange={() => handleSelect(item._id)}
+                  checked={selectedItems.includes(label == "Select Job"?item:item._id)}
+                  onChange={() => handleSelect(label == "Select Job"?item:item._id)}
                 />
               }
-              label={item.genre_name || item.tv_channel} // Use 'genre_name' or 'tv_channel' depending on the item type
+              label={item.genre_name || item.tv_channel ||item} // Use 'genre_name' or 'tv_channel' depending on the item type
             />
           ))}
         </FormGroup>
