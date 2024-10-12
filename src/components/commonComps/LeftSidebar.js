@@ -133,6 +133,8 @@ const LeftSidebar = ({ isOpen, handleFilter, handleClear, filters, left_props, h
             </Box>
           }
 
+        {!jobs &&
+        <>
           <Typography variant="h6" sx={{
             fontFamily: "Gloria Hallelujah",
             fontWeight: 700, textAlign: 'center'
@@ -145,6 +147,8 @@ const LeftSidebar = ({ isOpen, handleFilter, handleClear, filters, left_props, h
           }}>
             <CustomDatePicker startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
           </Box>
+          </>
+          }
 
       {/* Genres Checkbox Group */}
           {genres.length > 0 &&

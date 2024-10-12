@@ -82,9 +82,9 @@ function KPerson() {
         });
       }
       if (Object.keys(filters).length > 0) {
-        if (filters.start_date) {
-          filter_condition += `&start_date=${filters.start_date.replaceAll("-","/")}&end_date=${filters.end_date.replaceAll("-","/")}`;
-        }
+        // if (filters.start_date) {
+        //   filter_condition += `&start_date=${filters.start_date.replaceAll("-","/")}&end_date=${filters.end_date.replaceAll("-","/")}`;
+        // }
         
         
       }
