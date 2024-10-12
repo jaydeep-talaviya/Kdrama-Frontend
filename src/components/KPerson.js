@@ -71,10 +71,16 @@ function KPerson() {
       let filter_condition = '&order_by=birth_of_date&direction=desc';
       
       if (person_type == 'actor'){
-            filter_condition += `&jobs=Actor`;
+            filter_condition += `&gender=Male`;
         }
-  
-
+      if (person_type == 'actress'){
+          filter_condition += `&gender=Female`;
+      }
+      if (filters.jobs && filters.jobs.length > 0) {
+        filters.jobs.forEach((job) => {
+          filter_condition += `&jobs=${job}`;
+        });
+      }
       if (Object.keys(filters).length > 0) {
         if (filters.start_date) {
           filter_condition += `&start_date=${filters.start_date.replaceAll("-","/")}&end_date=${filters.end_date.replaceAll("-","/")}`;
@@ -161,8 +167,7 @@ function KPerson() {
   }, [isSmallScreen]);
 
 
-  const left_props = { genres: [], tv_channels: [],jobs:all_jobs };
-
+  const left_props = { genres: [], tv_channels: [],jobs:all_jobs.filter((x)=>x !== (person_type=='actor'?"Actress":'Actor')).sort() };
 
   console.log(">>>>>person_type",person_type)
   return (

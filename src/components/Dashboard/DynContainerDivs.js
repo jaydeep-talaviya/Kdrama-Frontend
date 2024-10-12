@@ -33,6 +33,7 @@ const Item = styled(Paper)(({ theme }) => ({
 const menus = [{route_name:"K-Dramas",route:"/kdrama"},
     {route_name:"K-Movies",route:"/kmovie"},
     {route_name:"K-Actors",route:"/kperson/actor"},
+    {route_name:"K-Actress",route:"/kperson/actress"},
 ]
 const showOff = [
     { "menu_name": "Kdramas", "val": 10 },

@@ -10,6 +10,10 @@ const MainContent = ({ dramas_movies_persons,type }) => {
   return (
     <Container >
       <Grid container spacing={4} sx={{ justifyContent: 'center', width: '100%', margin: "0px", padding: "0px" }}>
+        {dramas_movies_persons.length == 0 && 
+        <h1>No Any {type} Found ! Try Again</h1>
+        }
+        
         {type == 'drama' &&
         dramas_movies_persons.map((drama, index) => (
           <DramaCard key={index} drama={drama} />
@@ -25,6 +29,7 @@ const MainContent = ({ dramas_movies_persons,type }) => {
           <PersonCard key={index} person={person} />
         ))
       }
+      
       </Grid>
     </Container>
   );
