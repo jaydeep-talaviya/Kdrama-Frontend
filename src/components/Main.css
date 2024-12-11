@@ -54,3 +54,14 @@
 .toggle-btn svg{
   font-size: xx-large;
 }
+
+.drama_movie_links{
+text-decoration: none;
+display: flex;
+align-items: center;
+}
+.drama_movie_box{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
