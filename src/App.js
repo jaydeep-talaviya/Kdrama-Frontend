@@ -11,6 +11,7 @@ import SingleKdrama from './components/SingleKdrama';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SingleMovie from './components/SingleMovie';
 import KPerson from './components/KPerson';
+import SinglePerson from './components/SinglePerson';
 
 // import Kdrama2 from './components/Kdrama2';
 
@@ -38,6 +39,7 @@ function App() {
         {/* Single Kdrama Route with dynamic ID */}
         <Route path="/kdrama/:drama_id" element={<SingleKdrama />} />
         <Route path="/kmovie/:movie_id" element={<SingleMovie />} />
+        <Route path="/kactor/:person_id" element={<SinglePerson />} />
 
       </Routes>
     </BrowserRouter>

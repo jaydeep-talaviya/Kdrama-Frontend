@@ -100,7 +100,9 @@ const PersonCard = ({ person }) => {
         {jobs && jobs.length &&
         <Typography variant="body1"><strong>Jobs:</strong> {jobs.join(",")}</Typography>
         }
-       
+       <Link to={`/kactor/${_id}`}>
+          <NavigationButton variant="contained">View Details</NavigationButton>
+        </Link>
 
        
         

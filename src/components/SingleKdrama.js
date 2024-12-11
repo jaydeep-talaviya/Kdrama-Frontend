@@ -48,9 +48,18 @@ function SingleKdrama() {
 
   if (loading) {
     return (
+      <CommonLayout
+      contentRef={contentRef}
+      leftOpen={leftOpen}
+      isSmallScreen={true} 
+      setHeaderHeight={setHeaderHeight}
+      headerHeight={headerHeight}
+      SinglePage={true}
+    >
       <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
       <Loader />  {/* Display a loading spinner */}
       </Container>
+      </CommonLayout>
     );
   }
 
